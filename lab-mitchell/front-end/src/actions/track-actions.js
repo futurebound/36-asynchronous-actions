@@ -21,4 +21,28 @@ export const trackDelete = track => ({
   payload: track,
 });
 
+export const trackFetchRequest = () => dispatch => {
+  return superagent.get(`${__API_URL__}/api/v1/track`)
+    .then(res => dispatch(trackGet(res.body)))
+    .catch(logError);
+};
 
+export const trackCreateRequest = track => dispatch => {
+  return superagent.post(`${__API_URL__}/api/v1/track`)
+    .send(track)
+    .then(res => dispatch(trackCreate(res.body)))
+    .catch(logError);
+};
+
+export const trackUpdateRequest = track => dispatch => {
+  return superagent.put(`${__API_URL__}/api/v1/track/${track._id}`)
+    .send(track)
+    .then(() => dispatch(trackUpdate(track)))
+    .catch(logError);
+};
+
+export const trackDeleteRequest = track => dispatch => {
+  return superagent.delete(`${__API_URL__}/api/v1/track/${track._id}`)
+    .then(() => dispatch(trackDelete(track)))
+    .catch(logError);
+};

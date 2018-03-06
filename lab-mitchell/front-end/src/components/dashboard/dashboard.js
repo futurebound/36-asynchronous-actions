@@ -2,10 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {albumFetchRequest, albumCreateRequest} from '../../actions/album-actions';
 import AlbumForm from '../album/album-form/album-form';
+import AlbumItem from '../album/album-item/album-item';
+import {trackFetchRequest} from '../../actions/track-actions';
 
 class Dashboard extends React.Component {
   componentWillMount() {
     this.props.fetchAlbums();
+    this.props.fetchTracks();
   };
 
   render() {
@@ -15,19 +18,19 @@ class Dashboard extends React.Component {
         <AlbumForm
           buttonText='create'
           onComplete={this.props.createAlbum}/>
-        {this.props.albums ?
+        {/* {this.props.albums ?
           this.props.albums.map(album => 
-            // <div key={album.id}>
+            // <div key={album._id}>
             //   <span onClick={() => this.props.deleteAlbum(album)}>x</span>
             //   <p>{album.name}</p>
             // </div>
             <AlbumItem
               album={album}
-              key={album.id}/>
+              key={album._id}/>
           )
           :
           undefined
-        }
+        } */}
       </div>
     );
   }
@@ -40,6 +43,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchAlbums: () => dispatch(albumFetchRequest()),
   createAlbum: album => dispatch(albumCreateRequest(album)),
+  fetchTracks: () => dispatch(trackFetchRequest()),
   // deleteAlbum: album => dispatch(albumDeleteRequest(album)),
 });
 

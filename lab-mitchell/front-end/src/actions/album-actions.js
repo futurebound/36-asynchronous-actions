@@ -4,7 +4,6 @@ import {logError} from '../lib/utils';
 // require('dotenv').config({
 //   path: `${__dirname}/.dev.env`,
 // });
-const __API_URL__ = process.env.API_URL;
 
 export const albumSet = albums => ({
   type: 'ALBUM_SET',
@@ -33,9 +32,21 @@ export const albumFetchRequest = () => dispatch => {
 };
 
 export const albumCreateRequest = album => (dispatch, getState) => {
-  console.log('apiurl:', __API_URL__);
   return superagent.post(`${__API_URL__}/api/v1/album`)
     .send(album)
     .then(res => dispatch(albumCreate(res.body)))
+    .catch(logError);
+};
+
+export const albumUpdateRequest = album => (dispatch, getState) => {
+  return superagent.put(`${__API_URL__}/api/v1/album/${album._id}`)
+    .send(album)
+    .then(() => dispatch(albumUpdate(album)))
+    .catch(logError);
+};
+
+export const albumDeleteRequest = album => (dispatch, getState) => {
+  return superagent.put(`${__API_URL__}/api/v1/album/${album._id}`)
+    .then(() => dispatch(albumDelete(album)))
     .catch(logError);
 };

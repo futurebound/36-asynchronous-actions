@@ -28,7 +28,7 @@ class TrackItem extends React.Component {
     return (
       <div
         className='track-item'
-        key={this.props.track.id}
+        key={this.props.track._id}
         onDoubleClick={this.handleEditing}>
         <p>Track: {this.props.track.name}</p>
         <button onClick={this.handleDelete}>delete</button>

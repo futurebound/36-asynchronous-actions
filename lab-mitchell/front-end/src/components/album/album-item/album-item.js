@@ -33,7 +33,7 @@ class AlbumItem extends React.Component {
     return (
       <div
         className='album-item'
-        key={this.props.album.id}>
+        key={this.props.album._id}>
         <p onDoubleClick={this.handleEditing}>Album: {this.props.album.title}</p>
         <button onClick={this.handleDelete}>delete</button>
         {renderIf(this.state.editing,
@@ -44,13 +44,13 @@ class AlbumItem extends React.Component {
         )}
 
         <TrackForm
-          albumId={this.props.album.id}
+          albumId={this.props.album._id}
           buttonText='create'
           onComplete={this.props.trackCreate}/>
 
 
-        {renderIf(this.props.tracks[this.props.album.id],
-          this.props.tracks[this.props.album.id].map(track => <TrackItem key={track.id} track={track} />)
+        {renderIf(this.props.tracks[this.props.album._id],
+          this.props.tracks[this.props.album._id].map(track => <TrackItem key={track._id} track={track} />)
         )}
       </div>
     );
